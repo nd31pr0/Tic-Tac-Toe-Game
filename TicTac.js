@@ -19,5 +19,13 @@ function Gameboard() {
         board[i].push(Cell());
       }
     }
-    
+
 }
+
+
+function GameController(
+    playerOneName = "Player One",
+    playerTwoName = "Player Two"
+  ) {
+    const board = Gameboard();
+  }
