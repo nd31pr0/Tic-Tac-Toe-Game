@@ -35,9 +35,26 @@ function GameBoard() {
       const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
       console.log(boardWithCellValues);
     };
-    
+
     return { getBoard, dropToken, printBoard };
 }
+
+function Cell() {
+    let value = 0;
+  
+    // Accept a player's token to change the value of the cell
+    const addToken = (player) => {
+      value = player;
+    };
+  
+    // How we will retrieve the current value of this cell through closure
+    const getValue = () => value;
+  
+    return {
+      addToken,
+      getValue
+    };
+  }
 
 
 function GameController(
