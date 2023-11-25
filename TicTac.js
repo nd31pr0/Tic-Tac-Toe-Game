@@ -5,7 +5,7 @@ function Player(name, marker) {
     this.marker = marker;
   }
 
-function Gameboard() {
+function GameBoard() {
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -19,13 +19,22 @@ function Gameboard() {
         board[i].push(Cell());
       }
     }
+    const getBoard = () => board;
+
+    const dropToken = (column, row, player) => {
+        const availableCells = board.filter((row) => 
+            row[column].getValue() === 0).map(row => row[column]);
+        if (!availableCells.length) return;
+        board[row][column].addToken(player); 
+
+    }
 
 }
 
 
 function GameController(
-    playerOneName = "Player One",
-    playerTwoName = "Player Two"
   ) {
-    const board = Gameboard();
+    playerOne = new Player("Player One", X)
+    playerTwo = new Player("Player Two", O)
+    const board = GameBoard();
   }
