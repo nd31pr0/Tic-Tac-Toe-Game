@@ -35,8 +35,42 @@ function GameBoard() {
       const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
       console.log(boardWithCellValues);
     };
+    const checkWin = () => {
+        const winningCombinations = [
+          // Rows
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          // Columns
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          // Diagonals
+          [0, 4, 8],
+          [2, 4, 6]
+        ];
+    
+        for (const combination of winningCombinations) {
+          const [a, b, c] = combination;
+          const cellA = getCell(a);
+          const cellB = getCell(b);
+          const cellC = getCell(c);
+    
+          if (cellA && cellB && cellC && cellA.getValue() !== 0 && cellA.getValue() === cellB.getValue() && cellA.getValue() === cellC.getValue()) {
+            return true;
+          }
+        }
+    
+        return false;
+      };
+    
+      const getCell = (index) => {
+        const row = Math.floor(index / 3);
+        const column = index % 3;
+        return board[row][column];
+      };
 
-    return { getBoard, dropToken, printBoard };
+    return { getBoard, dropToken, printBoard, checkWin};
 }
 
 function Cell() {
@@ -95,12 +129,30 @@ function GameController(
   
       /*  This is where we would check for a winner and handle that logic,
           such as a win message. */
+      // Check for a win
+    if (board.checkWin()) {
+        console.log(`${getActivePlayer().name} wins!`);
+        return;
+      }
+  
+      // Check for a draw
+      if (isBoardFull()) {
+        console.log("It's a draw!");
+        return;
+      }
   
       // Switch player turn
       switchPlayerTurn();
       printNewRound();
     };
-  
+    const isBoardFull = () => {
+        const gameBoard = board.getBoard();
+        for (const row of gameBoard) {
+          for (const cell of row) {
+            if (cell.getValue() === 0) {
+              return false;
+            }
+          }
     // Initial play game message
     printNewRound();
   
