@@ -153,8 +153,9 @@ function GameController(
               return false;
             }
           }
-    // Initial play game message
-    printNewRound();
+        }
+        return true;
+      };
   
     // For the console version, we will only use playRound, but we will need
     // getActivePlayer for the UI version, so I'm revealing it now
