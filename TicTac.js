@@ -163,6 +163,16 @@ function GameController(
       playRound,
       getActivePlayer
     };
-  }
-  
-  const game = GameController();
+}
+
+// Test the game
+const gameController = GameController("Player 1", "Player 2");
+gameController.playRound(0, 0);
+gameController.playRound(0, 1);
+gameController.playRound(1, 0);
+gameController.playRound(1, 1);
+gameController.playRound(2, 0);
+gameController.playRound(0, 2);
+gameController.playRound(1, 2);
+gameController.playRound(2, 1);
+gameController.playRound(2, 2);
