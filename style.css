@@ -1,0 +1,32 @@
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+.container {
+    height: 80vh;
+    /* margin-top: 80px; */
+    margin: 40px 120px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+.stats {
+    height: inherit;
+    background-color: aquamarine;
+    width: 25%;
+    border-radius: 10px;
+}
+.board {
+    height: inherit;
+    width: 70%;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+}
+.g-item {
+   background-color: aqua;
+   border: 3px solid white ;
+   border-radius: 10px;
+}

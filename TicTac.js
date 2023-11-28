@@ -124,7 +124,7 @@ function GameController(
       /*  This is where we would check for a winner and handle that logic,
           such as a win message. */
       // Check for a win
-    if (board.checkWin()) {
+      if (board.checkWin()) {
         console.log(`${getActivePlayer().name} wins!`);
         return;
       }
