@@ -1,10 +1,4 @@
 
-
-function Player(name, marker) {
-    this.name = name;
-    this.marker = marker;
-  }
-
 function GameBoard() {
     const rows = 3;
     const columns = 3;
