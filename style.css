@@ -12,6 +12,7 @@ h1 {
     border: 1px solid grey;
     font-size: 28px;
     text-align: center;
+    background-color: #70837A;
 }
 .stats {
     height: inherit;
@@ -23,6 +24,14 @@ h1 {
 }
 .stats h2 {
     padding-top: 10%;
+}
+.stats div {
+    text-align: left;
+    padding-left: 80px;
+}
+.win-mssge {
+    background-color: green;
+    border-radius: 9px;
 }
 .board {
     height: inherit;
