@@ -1,11 +1,11 @@
 h1 {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 35px;
 }
 .container {
     height: 80vh;
-    margin: 40px 120px;
+    margin: 20px 120px;
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
@@ -67,4 +67,9 @@ h1 {
 
 .g-item:hover {
     background-color: #8d7459;
+}
+.footer {
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
 }
