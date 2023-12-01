@@ -109,6 +109,7 @@ function GameController(
   
     const switchPlayerTurn = () => {
       activePlayer = activePlayer === players[0] ? players[1] : players[0];
+      return activePlayer.token;
     };
     const getActivePlayer = () => activePlayer;
   
@@ -158,7 +159,8 @@ function GameController(
     // getActivePlayer for the UI version, so I'm revealing it now
     return {
       playRound,
-      getActivePlayer
+      getActivePlayer,
+      switchPlayerTurn
     };
 }
 
@@ -180,6 +182,7 @@ const displayController = (()=>{
           gameBoard.dropToken(column, row, currentPlayer.token);
           console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
           document.getElementById(`${e.target.id}`).innerHTML= currentPlayer.token
+          console.log(gameController.switchPlayerTurn());
         });
       });
 })();
