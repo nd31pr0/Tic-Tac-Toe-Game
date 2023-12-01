@@ -179,10 +179,12 @@ const displayController = (()=>{
           const column = cellId % 3;
           const row = Math.floor(cellId / 3);
           const currentPlayer = gameController.getActivePlayer();
+    
           gameBoard.dropToken(column, row, currentPlayer.token);
           console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
           document.getElementById(`${e.target.id}`).innerHTML= currentPlayer.token
-          console.log(gameController.switchPlayerTurn());
+          const newTurn = gameController.switchPlayerTurn();
+          turnMsge.innerHTML = newTurn
         });
       });
 })();
