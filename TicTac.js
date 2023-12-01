@@ -1,5 +1,6 @@
 
-function GameBoard() {
+
+const gameBoard = (function GameBoard() {
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -65,7 +66,7 @@ function GameBoard() {
       };
 
     return { getBoard, dropToken, printBoard, checkWin};
-}
+})();
 
 function Cell() {
     let value = 0;
@@ -89,7 +90,9 @@ function GameController(
     playerOneName = "Player One",
     playerTwoName = "Player Two"
   ) {
-    const board = GameBoard();
+    let round = 1;
+    let isOver = false;
+    const board = gameBoard;
   
     const players = [
       {
@@ -158,6 +161,28 @@ function GameController(
       getActivePlayer
     };
 }
+
+const displayController = (()=>{
+    const boardItem = document.querySelectorAll(".g-item");
+    const turnMsge = document.getElementById("turn");
+    const p1Score = document.getElementById("p1-score");
+    const p2Score = document.getElementById("p2-score");
+    const msgDisplay = document.getElementById("win-msge");
+    const restartBtn = document.getElementById("restart");
+    const replayBtn = document.getElementById("replay");
+
+    boardItem.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          const cellId = parseInt(e.target.id);
+          const column = cellId % 3;
+          const row = Math.floor(cellId / 3);
+          const currentPlayer = gameController.getActivePlayer();
+          gameBoard.dropToken(column, row, currentPlayer.token);
+          console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
+          document.getElementById(`${e.target.id}`).innerHTML= currentPlayer.token
+        });
+      });
+})();
 
 // Test the game
 const gameController = GameController("Player 1", "Player 2");
