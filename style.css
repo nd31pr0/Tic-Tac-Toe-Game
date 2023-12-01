@@ -38,7 +38,7 @@ h1 {
     color: white;
     font-size: 20px;
 }
-#restart:hover {
+#restart:hover, #replay:hover {
     background-color: #8d7459;
 }
 .win-mssge {
@@ -63,4 +63,8 @@ h1 {
    align-items: center;
    justify-content: center;
    font-size: 180px;
+}
+
+.g-item:hover {
+    background-color: #8d7459;
 }
