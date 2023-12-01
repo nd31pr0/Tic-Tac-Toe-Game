@@ -27,7 +27,8 @@ h1 {
 }
 .stats div {
     text-align: left;
-    padding-left: 80px;
+    margin: 0 auto;
+    padding-left: 17%;
 }
 #restart, #replay {
     margin-top: 30px;
