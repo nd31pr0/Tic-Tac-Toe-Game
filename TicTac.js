@@ -175,6 +175,7 @@ const displayController = (()=>{
     const replayBtn = document.getElementById("replay");
 
     boardItem.forEach((item) => {
+        console.log(item);
         item.addEventListener("click", (e) => {
           const cellId = parseInt(e.target.id);
           console.log(cellId)
@@ -197,12 +198,15 @@ const displayController = (()=>{
             row = 3
           }
           const currentPlayer = gameController.getActivePlayer();
-    
-          gameBoard.dropToken(column, row, currentPlayer.token);
-          console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
-          document.getElementById(`${e.target.id}`).innerHTML= currentPlayer.token
-          const newTurn = gameController.switchPlayerTurn();
-          turnMsge.innerHTML = newTurn
+        if (document.getElementById(`${e.target.id}`).innerHTML === "") {
+            gameBoard.dropToken(column, row, currentPlayer.token);
+            console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
+            document.getElementById(`${e.target.id}`).innerHTML = currentPlayer.token;
+            const newTurn = gameController.switchPlayerTurn();
+            turnMsge.innerHTML = newTurn;
+        } else {
+            console.log("Cell already occupied. Cannot drop token.");
+        }
         });
       });
 })();
