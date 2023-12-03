@@ -1,16 +1,16 @@
 
 
 const gameBoard = (function GameBoard() {
-    const rows = 3;
-    const columns = 3;
+    const rows = 4;
+    const columns = 4;
     const board = [];
   
     // Create a 2d array that will represent the state of the game board
     // For this 2d array, row 0 will represent the top row and
     // column 0 will represent the left-most column.
-    for (let i = 0; i < rows; i++) {
+    for (let i = 1; i < rows; i++) {
       board[i] = [];
-      for (let j = 0; j < columns; j++) {
+      for (let j = 1; j < columns; j++) {
         board[i].push(Cell());
       }
     }
@@ -18,9 +18,10 @@ const gameBoard = (function GameBoard() {
 
     const dropToken = (column, rowVal, player) => {
         const availableCells = board.filter((row) => 
-            row[column].getValue() === 0).map(row => row[column]);
+            row[column-1].getValue() === 0).map(row => row[column-1]);
+            console.log(availableCells);
         if (!availableCells.length) return;
-        board[rowVal][column].addToken(player); 
+        board[rowVal][column-1].addToken(player); 
     }
 
     // This method will be used to print our board to the console.
@@ -176,8 +177,25 @@ const displayController = (()=>{
     boardItem.forEach((item) => {
         item.addEventListener("click", (e) => {
           const cellId = parseInt(e.target.id);
-          const column = cellId % 3;
-          const row = Math.floor(cellId / 3);
+          console.log(cellId)
+          if (cellId == 1 || cellId == 4 || cellId == 7){
+            column = 1;
+          }
+          else if (cellId == 2 || cellId == 5 || cellId == 8){
+            column = 2
+          }
+          else if (cellId == 3 || cellId == 6 || cellId == 9){
+            column = 3;
+          }
+          if (cellId == 1 || cellId == 2 || cellId == 3){
+            row = 1
+          }
+          else if (cellId == 3 || cellId == 4 || cellId == 5){
+            row = 2
+          }
+          else {
+            row = 3
+          }
           const currentPlayer = gameController.getActivePlayer();
     
           gameBoard.dropToken(column, row, currentPlayer.token);
@@ -191,12 +209,12 @@ const displayController = (()=>{
 
 // Test the game
 const gameController = GameController("Player 1", "Player 2");
-gameController.playRound(0, 0);
-gameController.playRound(0, 1);
-gameController.playRound(1, 0);
-gameController.playRound(1, 1);
-gameController.playRound(2, 0);
-gameController.playRound(0, 2);
-gameController.playRound(1, 2);
-gameController.playRound(2, 1);
-gameController.playRound(2, 2);
+// gameController.playRound(0, 0);
+// gameController.playRound(0, 1);
+// gameController.playRound(1, 0);
+// gameController.playRound(1, 1);
+// gameController.playRound(2, 0);
+// gameController.playRound(0, 2);
+// gameController.playRound(1, 2);
+// gameController.playRound(2, 1);
+// gameController.playRound(2, 2);
