@@ -16,7 +16,16 @@ const GameBoard = (() => {
         board = Array(9).fill(null);
     };
 
+    // add a player's symbol to the board 
+    const makeMove = (player, index) => {
+        if (board[index]=== null){
+            board[index] = player.getSymbol();
+            return true;
+        }
+        return false;
+    };
     
+
 })();
 
 
