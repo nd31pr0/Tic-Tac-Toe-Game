@@ -1,4 +1,10 @@
-
+// Factory function for players 
+const Player = (name, symbol) => {
+    return {
+        getName: () => name,
+        getSymbol: () => symbol,
+    };
+};
 
 const gameBoard = (function GameBoard() {
     const rows = 4;
@@ -6,8 +12,8 @@ const gameBoard = (function GameBoard() {
     const board = [];
   
     // Create a 2d array that will represent the state of the game board
-    // For this 2d array, row 0 will represent the top row and
-    // column 0 will represent the left-most column.
+    // For this 2d array, row 1 will represent the top row and
+    // column 1 will represent the left-most column.
     for (let i = 1; i < rows; i++) {
       board[i] = [];
       for (let j = 1; j < columns; j++) {
@@ -19,9 +25,17 @@ const gameBoard = (function GameBoard() {
     const dropToken = (column, rowVal, player) => {
         const availableCells = board.filter((row) => 
             row[column-1].getValue() === 0).map(row => row[column-1]);
-            console.log(availableCells);
-        if (!availableCells.length) return;
-        board[rowVal][column-1].addToken(player); 
+            //console.log(availableCells);
+        if (!availableCells.length){ 
+            //functionality to endGame
+            return;
+        }
+        board[rowVal][column-1].addToken(player)
+        console.log(board[rowVal][column-1].addToken(player)); 
+        if(checkWin(board, player.token)){
+
+            // update player score and end game since a player has won
+        }
     }
 
     // This method will be used to print our board to the console.
@@ -31,40 +45,40 @@ const gameBoard = (function GameBoard() {
       const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
       console.log(boardWithCellValues);
     };
-    const checkWin = () => {
-        const winningCombinations = [
-          // Rows
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          // Columns
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          // Diagonals
-          [0, 4, 8],
-          [2, 4, 6]
-        ];
-    
-        for (const combination of winningCombinations) {
-          const [a, b, c] = combination;
-          const cellA = getCell(a);
-          const cellB = getCell(b);
-          const cellC = getCell(c);
-    
-          if (cellA && cellB && cellC && cellA.getValue() !== 0 && cellA.getValue() === cellB.getValue() && cellA.getValue() === cellC.getValue()) {
+    function checkWin(board, currentPlayer) {
+        // Check horizontal lines
+        for (let row = 1; row < 4; row++) {
+          console.log(board[row][1].getValue());  
+          if (
+            board[row][1] === currentPlayer &&
+            board[row][2] === currentPlayer &&
+            board[row][3] === currentPlayer
+          ) {
             return true;
           }
         }
-    
+      
+        // Check vertical lines
+        for (let col = 1; col < 4; col++) {
+          if (
+            board[1][col] === currentPlayer &&
+            board[2][col] === currentPlayer &&
+            board[3][col] === currentPlayer
+          ) {
+            return true;
+          }
+        }
+      
+        // Check diagonal lines
+        if (
+          (board[1][1].getValue() === currentPlayer && board[2][2] === currentPlayer && board[3][3] === currentPlayer) ||
+          (board[1][3].getValue() === currentPlayer && board[2][2] === currentPlayer && board[3][1] === currentPlayer)
+        ) {
+          return true;
+        }
+      
         return false;
-      };
-    
-      const getCell = (index) => {
-        const row = Math.floor(index / 3);
-        const column = index % 3;
-        return board[row][column];
-      };
+      }
 
     return { getBoard, dropToken, printBoard, checkWin};
 })();
@@ -74,7 +88,7 @@ function Cell() {
   
     // Accept a player's token to change the value of the cell
     const addToken = (player) => {
-      value = player;
+      value = player.token;
     };
   
     // How we will retrieve the current value of this cell through closure
@@ -131,7 +145,8 @@ function GameController(
       /*  This is where we would check for a winner and handle that logic,
           such as a win message. */
       // Check for a win
-      if (board.checkWin()) {
+      if (checkWin(board.getBoard(), getActivePlayer().token)) {
+        console.log("A win exists")
         console.log(`${getActivePlayer().name} wins!`);
         return;
       }
@@ -177,7 +192,6 @@ const displayController = (()=>{
     const replayBtn = document.getElementById("replay");
 
     boardItem.forEach((item) => {
-        console.log(item);
         item.addEventListener("click", (e) => {
           const cellId = parseInt(e.target.id);
           console.log(cellId)
@@ -204,6 +218,10 @@ const displayController = (()=>{
             gameBoard.dropToken(column, row, currentPlayer.token);
             console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
             document.getElementById(`${e.target.id}`).innerHTML = currentPlayer.token;
+            
+
+
+
             const newTurn = gameController.switchPlayerTurn();
             turnMsge.innerHTML = newTurn;
         } else {
