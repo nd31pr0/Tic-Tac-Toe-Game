@@ -36,9 +36,20 @@ const GameBoard = (() => {
             });
         }); 
     }
+    const isFull = () => {
+        return board.every(cell => cell !== null);
+    };
+    const getBoard = () => {
+        return [...baord];
+    };
 
-    
-
+    return {
+        initializeBoard,
+        makeMove,
+        checkWin,
+        isFull,
+        getBoard,
+    };
 })();
 
 
