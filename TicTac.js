@@ -298,8 +298,34 @@ const DisplayController = (() => {
             boardContainer.appendChild(cellElement);
         });
     };
-    
-})
+
+    const updateStatus = (message) => {
+        statusDisplay.textContent = message;
+    };
+
+    const showResult = (result) => {
+        updateStatus(result);
+        restartButton.computedStyleMap.display = "block";
+    };
+
+    restartButton.addEventListener("click", () => {
+        restartButton.style.display = "none";
+        GameController.initializeGame(player1, player2);
+    });
+
+    return {
+        renderBoard,
+        updateStatus,
+        showResult,
+    };
+
+})();
+
+// Initialize players and game: 
+const player1 = Player("Player 1", "X");
+const player2 = Player("player 2", "O");
+
+GameController.initializeGame(player1, player2);
 
 
 
