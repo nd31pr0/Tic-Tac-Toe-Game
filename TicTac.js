@@ -166,7 +166,31 @@ const GameController = (() => {
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
     };
 
-    
+    const handleMove = (index) => {
+        if (Gameboard.makeMove(getCurrentPlayer(), index)) {
+            DisplayController.renderBoard();
+
+            if (Gameboard.checkWin(getCurrentPlayer())){
+                DisplayController.showResult(`${getCurrentPlayer().getName()} wins!`);
+                return;
+            }
+            
+            if (Gameboard.isFull()){
+                DisplayController.showResult("It's a tie");
+                return;
+            }
+            
+            switchPlayer();
+            DisplayController.updateStatus(`${getCurrentPlayer().getName()}'s turn`);
+            
+        }
+    };
+
+    return {
+        initializeGame,
+        handleMove,
+    };
+
 })();
 
 
