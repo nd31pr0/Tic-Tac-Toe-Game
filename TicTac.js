@@ -160,6 +160,12 @@ const GameController = (() => {
         DisplayController.renderBoard();
     };
 
+    const getCurrentPlayer = () => players[currentPlayerIndex];
+
+    const switchPlayer = () => {
+        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+    };
+
     
 })();
 
