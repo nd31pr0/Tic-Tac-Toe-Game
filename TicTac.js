@@ -17,7 +17,7 @@ const GameBoard = (() => {
     };
 
     // add a player's symbol to the board 
-    const makeMove = (player, index) => {
+    const dropToken = (player, index) => {
         if (board[index]=== null){
             board[index] = player.getSymbol();
             return true;
@@ -45,7 +45,7 @@ const GameBoard = (() => {
 
     return {
         initializeBoard,
-        makeMove,
+        dropToken,
         checkWin,
         isFull,
         getBoard,
