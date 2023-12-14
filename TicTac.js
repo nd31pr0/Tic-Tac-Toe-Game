@@ -279,63 +279,80 @@ const GameController = (() => {
 //     };
 // }
 
-const displayController = (()=>{
-    const boardItem = document.querySelectorAll(".g-item");
-    const turnMsge = document.getElementById("turn");
-    const p1Score = document.getElementById("p1-score");
-    const p2Score = document.getElementById("p2-score");
-    const msgDisplay = document.getElementById("win-msge");
-    const restartBtn = document.getElementById("restart");
-    const replayBtn = document.getElementById("replay");
+// Module for DisplayController 
+const DisplayController = (() => {
+    const boardContainer = document.querySelector('#board-container');
+    const statusDisplay = document.querySelector('#status-display');
+    const restartButton = document.querySelector('#restart-button');
 
-    boardItem.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          const cellId = parseInt(e.target.id);
-          console.log(cellId)
-          if (cellId == 1 || cellId == 4 || cellId == 7){
-            column = 1;
-          }
-          else if (cellId == 2 || cellId == 5 || cellId == 8){
-            column = 2
-          }
-          else if (cellId == 3 || cellId == 6 || cellId == 9){
-            column = 3;
-          }
-          if (cellId == 1 || cellId == 2 || cellId == 3){
-            row = 1
-          }
-          else if (cellId == 3 || cellId == 4 || cellId == 5){
-            row = 2
-          }
-          else {
-            row = 3
-          }
-          const currentPlayer = gameController.getActivePlayer();
-        if (document.getElementById(`${e.target.id}`).innerHTML === "") {
-            gameBoard.dropToken(column, row, currentPlayer.token);
-            console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
-            document.getElementById(`${e.target.id}`).innerHTML = currentPlayer.token;
+    const renderBoard = () => {
+        const board = Gameboard.getBoard();
+        boardContainer.innerHTML = "";
+
+        board.forEach((cell, index) => {
+            const cellElement = document.createElement("button");
+            cellElement.classList.add("cell");
+            cellElement.textContent = cell || "";
+            cellElement.setAttribute("data-index", index);
+            cellElement.addEventLister("click", () => GameController.handleMove(index));
+            boardContainer.appendChild(cellElement);
+        });
+    };
+    
+})
+
+
+
+
+
+// const displayController = (()=>{
+//     const boardItem = document.querySelectorAll(".g-item");
+//     const turnMsge = document.getElementById("turn");
+//     const p1Score = document.getElementById("p1-score");
+//     const p2Score = document.getElementById("p2-score");
+//     const msgDisplay = document.getElementById("win-msge");
+//     const restartBtn = document.getElementById("restart");
+//     const replayBtn = document.getElementById("replay");
+
+//     boardItem.forEach((item) => {
+//         item.addEventListener("click", (e) => {
+//           const cellId = parseInt(e.target.id);
+//           console.log(cellId)
+//           if (cellId == 1 || cellId == 4 || cellId == 7){
+//             column = 1;
+//           }
+//           else if (cellId == 2 || cellId == 5 || cellId == 8){
+//             column = 2
+//           }
+//           else if (cellId == 3 || cellId == 6 || cellId == 9){
+//             column = 3;
+//           }
+//           if (cellId == 1 || cellId == 2 || cellId == 3){
+//             row = 1
+//           }
+//           else if (cellId == 3 || cellId == 4 || cellId == 5){
+//             row = 2
+//           }
+//           else {
+//             row = 3
+//           }
+//           const currentPlayer = gameController.getActivePlayer();
+//         if (document.getElementById(`${e.target.id}`).innerHTML === "") {
+//             gameBoard.dropToken(column, row, currentPlayer.token);
+//             console.log(`Dropping ${currentPlayer.name}'s token into column ${column} and row ${row}...`);
+//             document.getElementById(`${e.target.id}`).innerHTML = currentPlayer.token;
             
 
 
 
-            const newTurn = gameController.switchPlayerTurn();
-            turnMsge.innerHTML = newTurn;
-        } else {
-            console.log("Cell already occupied. Cannot drop token.");
-        }
-        });
-      });
-})();
+//             const newTurn = gameController.switchPlayerTurn();
+//             turnMsge.innerHTML = newTurn;
+//         } else {
+//             console.log("Cell already occupied. Cannot drop token.");
+//         }
+//         });
+//       });
+// })();
 
-// Test the game
-const gameController = GameController("Player 1", "Player 2");
-// gameController.playRound(0, 0);
-// gameController.playRound(0, 1);
-// gameController.playRound(1, 0);
-// gameController.playRound(1, 1);
-// gameController.playRound(2, 0);
-// gameController.playRound(0, 2);
-// gameController.playRound(1, 2);
-// gameController.playRound(2, 1);
-// gameController.playRound(2, 2);
+// // Test the game
+// const gameController = GameController("Player 1", "Player 2");
