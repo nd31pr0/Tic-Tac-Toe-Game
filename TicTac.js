@@ -6,6 +6,20 @@ const Player = (name, symbol) => {
     };
 };
 
+
+// Gameboard Module 
+const GameBoard = (() => {
+    let board = Array(9).fill(null);
+
+    // Initialize the board with null values
+    const initializeBoard = () => {
+        board = Array(9).fill(null);
+    };
+
+    
+})();
+
+
 const gameBoard = (function GameBoard() {
     const rows = 4;
     const columns = 4;
